@@ -11,6 +11,8 @@ jobs:
 
       - name: Fetch Sources
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Login to GitHub Container Registry
         env:
