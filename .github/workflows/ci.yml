@@ -16,8 +16,13 @@ jobs:
         env:
           DOCKER_USERNAME: kawinz-org
           DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        run: echo $DOCKER_PASSWORD | docker login ghcr.io --username kawinz-org --password-stdin
-      
-      - name: 
-        run: ./hello-world/update.sh
-      
+        run: echo $DOCKER_PASSWORD | docker login ghcr.io --username mommde --password-stdin
+
+      - name: Build & Tag
+        run: docker build -t ghcr.io/kawinz-org/imgmf-test-container-repository:latest -t ghcr.io/kawinz-org/imgmf-test-container-repository:"$GITHUB_SHA" ./docker-hello-world/
+
+      - name: Push Image to GitHub Container Registry
+        run: docker push ghcr.io/kawinz-org/imgmf-test-container-repository:latest
+
+      - name: Push Specific Image to GitHub Container Registry
+        run: docker push ghcr.io/kawinz-org/imgmf-test-container-repository:"$GITHUB_SHA"
